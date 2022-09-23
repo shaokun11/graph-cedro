@@ -1,0 +1,27 @@
+specVersion: 0.0.4
+description: Gravatar for Ethereum
+repository: https://github.com/graphprotocol/example-subgraph
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: Server
+    network: rinkeby
+    source:
+      abi: Server
+      address: "0x7f6943fc1f0F42d715E56349fa14062C564451dE"
+      startBlock: 11424946
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - BorrowEntity
+        - BorrowUsers
+      abis:
+        - name: Server
+          file: ./abis/Server.json
+      eventHandlers:
+        - event: Borrow(uint256,uint16,address,uint256)
+          handler: handleBorrow
+      file: ./src/mapping.ts

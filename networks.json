@@ -1,0 +1,14 @@
+{
+  "mainnet": {
+    "Server": {
+      "address": "0x7f6943fc1f0F42d715E56349fa14062C564451dE",
+      "startBlock": 11424946
+    }
+  },
+  "rinkeby": {
+    "Server": {
+      "address": "0x7f6943fc1f0F42d715E56349fa14062C564451dE",
+      "startBlock": 11424946
+    }
+  }
+}

@@ -1,0 +1,16 @@
+type BorrowEntity @entity {
+  id: ID!
+  clientId: BigInt!
+  chainId: BigInt!
+  user: String!
+  amount: BigInt!
+  timestamp: BigInt!
+  block: BigInt!
+}
+
+type BorrowUsers @entity {
+  id: ID!
+  users:[String!]!
+  timestamp: BigInt!
+}
+
