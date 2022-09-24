@@ -1,5 +1,5 @@
 import {Borrow} from "../generated/Server/Server";
-import {BorrowEntity, BorrowUsers} from "../generated/schema";
+import {BorrowEntity, BorrowUsersEntity} from "../generated/schema";
 import {BigInt} from "@graphprotocol/graph-ts";
 
 export function handleBorrow(event: Borrow): void {
@@ -13,17 +13,23 @@ export function handleBorrow(event: Borrow): void {
     entity.user = event.params.user.toHex()
     entity.save()
 
-    let usersEntity = BorrowUsers.load("BorrowUsers");
+    let usersEntity = BorrowUsersEntity.load("1");
     if (usersEntity == null) {
-        usersEntity = new BorrowUsers("BorrowUsers");
+        usersEntity = new BorrowUsersEntity("1");
         usersEntity.users = []
+        usersEntity.timestamp = entity.timestamp
+        usersEntity.save()
+        usersEntity = BorrowUsersEntity.load("1");
     }
-    let users = usersEntity.users
-    if (!users.includes(entity.user)) {
-        users.push(entity.user)
-        usersEntity.users = users
+    if (usersEntity != null) {
+        let users = usersEntity.users
+        if (!users.includes(entity.user)) {
+            users.push(entity.user)
+            usersEntity.users = users
+        }
+        usersEntity.timestamp = entity.timestamp
+        usersEntity.save()
     }
-    usersEntity.timestamp = entity.timestamp
-    usersEntity.save()
+
 }
 

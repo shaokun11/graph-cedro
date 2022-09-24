@@ -8,7 +8,7 @@ type BorrowEntity @entity {
   block: BigInt!
 }
 
-type BorrowUsers @entity {
+type BorrowUsersEntity @entity {
   id: ID!
   users:[String!]!
   timestamp: BigInt!
