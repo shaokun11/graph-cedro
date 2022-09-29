@@ -14,3 +14,26 @@ type BorrowUsersEntity @entity {
   timestamp: BigInt!
 }
 
+type DepositEntity @entity {
+  id: ID!
+  amount: BigInt!
+  chainId: BigInt!
+  user: String!
+  clientId: BigInt!
+  block: BigInt!
+  timestamp: BigInt!
+}
+
+type WithdrawEntity @entity {
+  id: ID!
+  amount: BigInt!
+  chainId: BigInt!
+  user: String!
+  clientId: BigInt!
+  share: BigInt!
+  block: BigInt!
+  timestamp: BigInt!
+}
+
+
+

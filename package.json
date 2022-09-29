@@ -5,7 +5,7 @@
     "create": "graph create shaokun11/cedro --node https://api.thegraph.com/deploy/",
     "codegen": "graph codegen",
     "build": "graph build",
-    "deploy": "graph deploy shaokun11/cedro --ipfs https://api.thegraph.com/ipfs/ --node https://api.thegraph.com/deploy/"
+    "deploy": "graph deploy --product hosted-service shaokun11/cedro "
   },
   "devDependencies": {
     "@graphprotocol/graph-cli": "^0.30.2",
