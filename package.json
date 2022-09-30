@@ -2,9 +2,8 @@
   "name": "cedro",
   "version": "0.1.0",
   "scripts": {
-    "create": "graph create shaokun11/cedro --node https://api.thegraph.com/deploy/",
     "codegen": "graph codegen",
-    "build": "graph build",
+    "build": "graph build --network rinkeby",
     "deploy": "graph deploy --product hosted-service shaokun11/cedro "
   },
   "devDependencies": {
