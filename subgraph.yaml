@@ -1,4 +1,4 @@
-specVersion: 0.0.4
+specVersion: 0.0.3
 description: Gravatar for Ethereum
 repository: https://github.com/graphprotocol/example-subgraph
 schema:
@@ -6,14 +6,14 @@ schema:
 dataSources:
   - kind: ethereum/contract
     name: Server
-    network: rinkeby
+    network: bscTest
     source:
       abi: Server
-      address: "0x160c64a5d7483e6d533fb90da310c0c512deb917"
-      startBlock: 11468663
+      address: "0x7a0866512dfbf00D2F2BBB68F7979f95d6DfAF89"
+      startBlock: 23664402
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.5
+      apiVersion: 0.0.4
       language: wasm/assemblyscript
       entities:
         - BorrowEntity
