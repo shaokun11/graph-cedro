@@ -9,7 +9,7 @@ dataSources:
     network: bscTest
     source:
       abi: Server
-      address: "0x7a0866512dfbf00D2F2BBB68F7979f95d6DfAF89"
+      address: "0x796d5FF6495cb12fC75E082FA31BF861a44e0B8d"
       startBlock: 23664402
     mapping:
       kind: ethereum/events
