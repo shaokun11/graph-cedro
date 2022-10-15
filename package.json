@@ -9,11 +9,12 @@
     "deploy": "graph deploy --product hosted-service shaokun11/cedro "
   },
   "devDependencies": {
-    "@graphprotocol/graph-cli": "^0.30.2",
-    "@graphprotocol/graph-ts": "^0.27.0"
+    "@graphprotocol/graph-cli": "0.21.1",
+    "@graphprotocol/graph-ts": "0.20.0"
   },
   "dependencies": {
     "babel-polyfill": "^6.26.0",
-    "babel-register": "^6.26.0"
+    "babel-register": "^6.26.0",
+    "semver": "^7.3.8"
   }
 }

@@ -20,6 +20,8 @@ dataSources:
         - BorrowUsersEntity
         - DepositEntity
         - WithdrawEntity
+        - ClientEntity
+        - UserEntity
       abis:
         - name: Server
           file: ./abis/Server.json
@@ -30,4 +32,6 @@ dataSources:
           handler: handleDeposit
         - event: Withdraw(uint256,uint16,address,uint256,uint256)
           handler: handleWithdraw
+        - event: Repay(uint256,uint16,address,uint256,uint256)
+          handler: handleRepay
       file: ./src/mapping.ts

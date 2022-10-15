@@ -1,6 +1,41 @@
-import {Borrow, Deposit, Withdraw} from "../generated/Server/Server";
-import {BorrowEntity, BorrowUsersEntity, DepositEntity, WithdrawEntity} from "../generated/schema";
-import {BigInt} from "@graphprotocol/graph-ts";
+import {Borrow, Deposit, Server, Withdraw} from "../generated/Server/Server";
+import {
+    BorrowEntity,
+    BorrowUsersEntity,
+    ClientEntity,
+    DepositEntity,
+    UserEntity,
+    WithdrawEntity
+} from "../generated/schema";
+import {Address, BigInt} from "@graphprotocol/graph-ts";
+
+let serverContract = Server.bind(Address.fromString("0x796d5FF6495cb12fC75E082FA31BF861a44e0B8d"))
+
+
+function updateViewContract(clientId: BigInt, user: string): void {
+    let res = serverContract.clients(BigInt.fromString("1"));
+    let entity = ClientEntity.load("1");
+    if (entity == null) {
+        entity = new ClientEntity("1");
+    }
+    entity.liquidityA = res.value0.liquidity
+    entity.liquidityB = res.value1.liquidity;
+    entity.totalShareA = res.value0.totalShare;
+    entity.totalShareB = res.value1.totalShare;
+    entity.save()
+    let id = user.concat("/").concat(clientId.toString())
+    let entityUser = UserEntity.load(id);
+    if (entityUser == null) {
+        entityUser = new UserEntity(id);
+    }
+    entityUser.clientId = clientId;
+    entityUser.user = user;
+    let resUser = serverContract.userInfos(Address.fromString(user), clientId);
+    entityUser.shareA = resUser.value0
+    entityUser.shareB = resUser.value1
+    entityUser.save()
+
+}
 
 export function handleBorrow(event: Borrow): void {
     let id = event.transaction.hash.toHex()
@@ -31,6 +66,11 @@ export function handleBorrow(event: Borrow): void {
         usersEntity.timestamp = entity.timestamp
         usersEntity.save()
     }
+    updateViewContract(event.params.clientId, event.params.user.toHex())
+}
+
+export function handleRepay(event: Deposit): void {
+    updateViewContract(event.params.clientId, event.params.user.toHex())
 }
 
 export function handleDeposit(event: Deposit): void {
@@ -44,7 +84,7 @@ export function handleDeposit(event: Deposit): void {
     entity.timestamp = event.block.timestamp
     entity.block = event.block.number
     entity.save()
-
+    updateViewContract(event.params.clientId, event.params.user.toHex())
 }
 
 export function handleWithdraw(event: Withdraw): void {
@@ -59,4 +99,5 @@ export function handleWithdraw(event: Withdraw): void {
     entity.timestamp = event.block.timestamp
     entity.block = event.block.number
     entity.save()
+    updateViewContract(event.params.clientId, event.params.user.toHex())
 }

@@ -1,39 +1,54 @@
 type BorrowEntity @entity {
-  id: ID!
-  clientId: BigInt!
-  chainId: BigInt!
-  user: String!
-  amount: BigInt!
-  timestamp: BigInt!
-  block: BigInt!
+    id: ID!
+    clientId: BigInt!
+    chainId: BigInt!
+    user: String!
+    amount: BigInt!
+    timestamp: BigInt!
+    block: BigInt!
 }
 
 type BorrowUsersEntity @entity {
-  id: ID!
-  users:[String!]!
-  timestamp: BigInt!
+    id: ID!
+    users:[String!]!
+    timestamp: BigInt!
 }
 
 type DepositEntity @entity {
-  id: ID!
-  amount: BigInt!
-  chainId: BigInt!
-  user: String!
-  clientId: BigInt!
-  block: BigInt!
-  timestamp: BigInt!
+    id: ID!
+    amount: BigInt!
+    chainId: BigInt!
+    user: String!
+    clientId: BigInt!
+    block: BigInt!
+    timestamp: BigInt!
 }
 
 type WithdrawEntity @entity {
-  id: ID!
-  amount: BigInt!
-  chainId: BigInt!
-  user: String!
-  clientId: BigInt!
-  share: BigInt!
-  block: BigInt!
-  timestamp: BigInt!
+    id: ID!
+    amount: BigInt!
+    chainId: BigInt!
+    user: String!
+    clientId: BigInt!
+    share: BigInt!
+    block: BigInt!
+    timestamp: BigInt!
 }
 
+type ClientEntity @entity {
+    id: ID!
+    liquidityA:BigInt!
+    liquidityB:BigInt!
+    totalShareA:BigInt!
+    totalShareB:BigInt!
+}
+
+type UserEntity @entity {
+    id: ID!
+    user:String!
+    clientId:BigInt!
+    shareA:BigInt!
+    shareB:BigInt!
+}
 
 
