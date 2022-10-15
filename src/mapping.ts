@@ -9,7 +9,7 @@ import {
 } from "../generated/schema";
 import {Address, BigInt} from "@graphprotocol/graph-ts";
 
-let serverContract = Server.bind(Address.fromString("0x796d5FF6495cb12fC75E082FA31BF861a44e0B8d"))
+let serverContract = Server.bind(Address.fromString("0x129F1409197d00f484ea9924233D6b96e0458159"))
 
 
 function updateViewContract(clientId: BigInt, user: string): void {
