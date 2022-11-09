@@ -3,10 +3,10 @@
   "version": "0.1.0",
   "scripts": {
     "codegen": "graph codegen",
-    "build": "graph build --network bscTest",
+    "build": "graph build --network mumbai",
     "create": "graph create cedro/server --node http://localhost:8020",
     "deploy:l": "graph deploy cedro/server --node http://localhost:8020 --ipfs http://localhost:5001",
-    "deploy": "graph deploy --product hosted-service shaokun11/cedro "
+    "deploy": "graph deploy --product hosted-service shaokun11/cedrov2"
   },
   "devDependencies": {
     "@graphprotocol/graph-cli": "^0.30.2",
