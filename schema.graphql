@@ -1,7 +1,7 @@
 type BorrowEntity @entity {
-  id: ID!
+  hash: ID!
   user: String!
-  key: String!
+  id: String!
   chainId: BigInt!
   tokenAmount: BigInt!
   debtAmount: BigInt!
@@ -16,9 +16,9 @@ type BorrowUsersEntity @entity {
 }
 
 type DepositEntity @entity {
-  id: ID!
+  hash: ID!
   user: String!
-  key: String!
+  id: String!
   chainId: BigInt!
   tokenAmount: BigInt!
   ceAmount: BigInt!
@@ -27,9 +27,9 @@ type DepositEntity @entity {
 }
 
 type WithdrawEntity @entity {
-  id: ID!
+  hash: ID!
   user: String!
-  key: String!
+  id: String!
   chainId: BigInt!
   tokenAmount: BigInt!
   ceAmount: BigInt!
@@ -38,9 +38,9 @@ type WithdrawEntity @entity {
 }
 
 type RepayEntity @entity {
-  id: ID!
+  hash: ID!
   user: String!
-  key: String!
+  id: String!
   chainId: BigInt!
   tokenAmount: BigInt!
   debtAmount: BigInt!

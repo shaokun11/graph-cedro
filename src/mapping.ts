@@ -11,7 +11,7 @@ export function handleBorrow(event: Borrow): void {
     entity.timestamp = event.block.timestamp
     // @ts-ignore
     entity.chainId = BigInt.fromI32(event.params.chainId as i32)
-    entity.key = event.params.id.toHex()
+    entity.id = event.params.id.toHex()
     entity.user = event.params.user.toHex()
     entity.save()
 
@@ -41,7 +41,7 @@ export function handleDeposit(event: Deposit): void {
     entity.ceAmount = event.params.ceAmount
     // @ts-ignore
     entity.chainId = BigInt.fromI32(event.params.chainId as i32)
-    entity.key = event.params.id.toHex()
+    entity.id = event.params.id.toHex()
     entity.user = event.params.user.toHex()
     entity.timestamp = event.block.timestamp
     entity.block = event.block.number
@@ -56,7 +56,7 @@ export function handleWithdraw(event: Withdraw): void {
     entity.ceAmount = event.params.ceAmount
     // @ts-ignore
     entity.chainId = BigInt.fromI32(event.params.chainId as i32)
-    entity.key = event.params.id.toHex()
+    entity.id = event.params.id.toHex()
     entity.user = event.params.user.toHex()
     entity.timestamp = event.block.timestamp
     entity.block = event.block.number
@@ -70,7 +70,7 @@ export function handleRepay(event: Repay): void {
     entity.debtAmount = event.params.debtAmount
     // @ts-ignore
     entity.chainId = BigInt.fromI32(event.params.chainId as i32)
-    entity.key = event.params.id.toHex()
+    entity.id = event.params.id.toHex()
     entity.user = event.params.user.toHex()
     entity.timestamp = event.block.timestamp
     entity.block = event.block.number
