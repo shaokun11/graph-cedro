@@ -49,6 +49,16 @@ type RepayEntity @entity {
   block: BigInt!
 }
 
+type ReserveEntity @entity {
+  id: ID!
+  interestRate: BigInt!
+  currentRatio: BigInt!
+  key: String!
+  action: String!
+  timestamp: BigInt!
+  block: BigInt!
+}
+
 
 
 

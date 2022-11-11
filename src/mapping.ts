@@ -1,6 +1,30 @@
-import {Borrow, Deposit, Repay, Withdraw} from "../generated/Server/Server";
-import {BorrowEntity, BorrowUsersEntity, DepositEntity, RepayEntity, WithdrawEntity} from "../generated/schema";
-import {BigInt} from "@graphprotocol/graph-ts";
+import {Borrow, Deposit, Repay, Server, Withdraw} from "../generated/Server/Server";
+import {
+    BorrowEntity,
+    BorrowUsersEntity,
+    DepositEntity,
+    RepayEntity,
+    ReserveEntity,
+    WithdrawEntity
+} from "../generated/schema";
+import {Address, BigInt, Bytes, ethereum} from "@graphprotocol/graph-ts";
+
+
+let serverAddress = Address.fromString('0x5f2340e10028CfF257f0722e68f73789b14Dd257')
+let serverContract = Server.bind(serverAddress)
+
+function updateAPY(event: ethereum.Event, key: Bytes,action:string): void {
+    let k = event.transaction.hash.toHex()
+    let entity = new ReserveEntity(k)
+    let res = serverContract.reserves(key)
+    entity.currentRatio = res.getCurrentRatio()
+    entity.interestRate = res.getInterestRate()
+    entity.action = action
+    entity.key = key.toHex()
+    entity.timestamp = event.block.timestamp
+    entity.block = event.block.number
+    entity.save()
+}
 
 export function handleBorrow(event: Borrow): void {
     let id = event.transaction.hash.toHex()
@@ -32,6 +56,7 @@ export function handleBorrow(event: Borrow): void {
         usersEntity.timestamp = entity.timestamp
         usersEntity.save()
     }
+    updateAPY(event, event.params.id,'BORROW')
 }
 
 export function handleDeposit(event: Deposit): void {
@@ -46,6 +71,7 @@ export function handleDeposit(event: Deposit): void {
     entity.timestamp = event.block.timestamp
     entity.block = event.block.number
     entity.save()
+    updateAPY(event, event.params.id,"DEPOSIT")
 
 }
 
@@ -61,7 +87,9 @@ export function handleWithdraw(event: Withdraw): void {
     entity.timestamp = event.block.timestamp
     entity.block = event.block.number
     entity.save()
+    updateAPY(event, event.params.id,"WITHDRAW")
 }
+
 export function handleRepay(event: Repay): void {
     let id = event.transaction.hash.toHex()
     let entity = new RepayEntity(id)
@@ -75,4 +103,5 @@ export function handleRepay(event: Repay): void {
     entity.timestamp = event.block.timestamp
     entity.block = event.block.number
     entity.save()
+    updateAPY(event, event.params.id,"REPAY")
 }
