@@ -59,6 +59,15 @@ type ReserveEntity @entity {
   block: BigInt!
 }
 
+type SummaryEntity @entity {
+  id: ID!
+  depositCount:BigInt!
+  withdrawCount:BigInt!
+  borrowCount:BigInt!
+  repayCount:BigInt!
+  timestamp: BigInt!
+  block: BigInt!
+}
 
 
 

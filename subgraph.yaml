@@ -22,6 +22,7 @@ dataSources:
         - WithdrawEntity
         - RepayEntity
         - ReserveEntity
+        - SummaryEntity
       abis:
         - name: Server
           file: ./abis/Server.json
