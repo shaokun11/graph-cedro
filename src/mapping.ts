@@ -1,8 +1,9 @@
-import {Borrow, Deposit, Repay, Server, Withdraw} from "../generated/Server/Server";
+import {Borrow, Deposit, Liquidate, Repay, Server, Withdraw} from "../generated/Server/Server";
 import {
     BorrowEntity,
     BorrowUsersEntity,
     DepositEntity,
+    LiquidateEntity,
     RepayEntity,
     ReserveEntity,
     SummaryEntity,
@@ -15,33 +16,36 @@ let serverAddress = Address.fromString('0xd34e4372f5E99fb390bB91603d9AEa851cA46f
 let serverContract = Server.bind(serverAddress)
 
 function updateAPY(event: ethereum.Event, key: Bytes, action: string): void {
-    let k = event.transaction.hash.toHex()
-    let entity = new ReserveEntity(k)
-    let res = serverContract.reserves(key)
-    entity.currentRatio = res.getCurrentRatio()
-    entity.interestRate = res.getInterestRate()
-    entity.action = action
-    entity.key = key.toHex()
-    entity.timestamp = event.block.timestamp
-    entity.block = event.block.number
-    entity.save()
-
+    if (action != "LIQUIDATE") {
+        // update apy
+        let k = event.transaction.hash.toHex()
+        let entity = new ReserveEntity(k)
+        let res = serverContract.reserves(key)
+        entity.currentRatio = res.getCurrentRatio()
+        entity.interestRate = res.getInterestRate()
+        entity.action = action
+        entity.key = key.toHex()
+        entity.timestamp = event.block.timestamp
+        entity.block = event.block.number
+        entity.save()
+    }
+    // update summary info
+    let BIGINT_ONE = BigInt.fromString('1')
     let summaryEntity = SummaryEntity.load("1");
     if (summaryEntity == null) {
         summaryEntity = new SummaryEntity("1");
-        summaryEntity.timestamp = entity.timestamp
-        summaryEntity.block = entity.block
+        summaryEntity.timestamp = event.block.timestamp
+        summaryEntity.block = event.block.number
         summaryEntity.depositCount = BigInt.zero()
         summaryEntity.withdrawCount = BigInt.zero()
         summaryEntity.repayCount = BigInt.zero()
         summaryEntity.borrowCount = BigInt.zero()
-        summaryEntity.block = entity.block
-        summaryEntity.timestamp = entity.timestamp
+        summaryEntity.totalCount = BigInt.zero()
+        summaryEntity.liquidateCount = BigInt.zero()
         summaryEntity.save()
         summaryEntity = SummaryEntity.load("1");
     }
     if (summaryEntity != null) {
-        let BIGINT_ONE = BigInt.fromString('1')
         if (action == "DEPOSIT") {
             summaryEntity.depositCount = summaryEntity.depositCount.plus(BIGINT_ONE)
         } else if (action == "BORROW") {
@@ -50,11 +54,30 @@ function updateAPY(event: ethereum.Event, key: Bytes, action: string): void {
             summaryEntity.withdrawCount = summaryEntity.withdrawCount.plus(BIGINT_ONE)
         } else if (action == "REPAY") {
             summaryEntity.repayCount = summaryEntity.repayCount.plus(BIGINT_ONE)
+        } else if (action == "LIQUIDATE") {
+            summaryEntity.liquidateCount = summaryEntity.liquidateCount.plus(BIGINT_ONE)
         }
-        summaryEntity.block = entity.block
-        summaryEntity.timestamp = entity.timestamp
+        summaryEntity.totalCount = summaryEntity.totalCount.plus(BIGINT_ONE)
+        summaryEntity.block = event.block.number
+        summaryEntity.timestamp = event.block.timestamp
         summaryEntity.save()
     }
+}
+
+export function handleLiquidate(event: Liquidate): void {
+    let entity = new LiquidateEntity(event.transaction.hash.toHex())
+    entity.user = event.params.user.toHex()
+    entity.liquidator = event.params.liquidator.toHex()
+    entity.ceCollateralAmount = event.params.ceCollateralAmount
+    entity.debtId = event.params.debtId.toHex()
+    entity.collateralId = event.params.collateralId.toHex()
+    entity.debtAmount = event.params.debtAmount
+    entity.ceDebtAmount = event.params.ceDebtAmount
+    entity.block = event.block.number
+    entity.timestamp = event.block.timestamp
+    entity.save()
+    updateAPY(event, event.params.collateralId, 'LIQUIDATE')
+
 }
 
 export function handleBorrow(event: Borrow): void {

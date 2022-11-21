@@ -23,6 +23,7 @@ dataSources:
         - RepayEntity
         - ReserveEntity
         - SummaryEntity
+        - LiquidateEntity
       abis:
         - name: Server
           file: ./abis/Server.json
@@ -35,4 +36,6 @@ dataSources:
           handler: handleWithdraw
         - event: Repay(address,bytes32,uint16,uint256,uint256,uint256)
           handler: handleRepay
+        - event: Liquidate(address,address,bytes32,bytes32,uint256,uint256,uint256)
+          handler: handleLiquidate
       file: ./src/mapping.ts
