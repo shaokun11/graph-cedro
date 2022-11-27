@@ -9,7 +9,7 @@ dataSources:
     network: mumbai
     source:
       abi: Server
-      address: "0x2dD549E499DDb8C283d403555794a9DE2aE51889"
+      address: "0x8bAF49C4b98b7D2e0B7F870ab6533dED69070614"
       startBlock: 29056258
     mapping:
       kind: ethereum/events

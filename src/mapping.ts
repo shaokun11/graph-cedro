@@ -12,7 +12,7 @@ import {
 import {Address, BigInt, Bytes, ethereum} from "@graphprotocol/graph-ts";
 
 
-let serverAddress = Address.fromString('0x2dD549E499DDb8C283d403555794a9DE2aE51889')
+let serverAddress = Address.fromString('0x8bAF49C4b98b7D2e0B7F870ab6533dED69070614')
 let serverContract = Server.bind(serverAddress)
 
 function updateAPY(event: ethereum.Event, key: Bytes, action: string): void {
