@@ -84,5 +84,23 @@ type SummaryEntity @entity {
   block: BigInt!
 }
 
+type UserActionEntity @entity {
+  id: ID!
+  action:String
+  user: String!
+  key: String!
+  chainId: BigInt
+  tokenAmount: BigInt
+  debtAmount: BigInt
+  ceAmount: BigInt
+  debtId: String
+  collateralId: String
+  ceDebtAmount: BigInt
+  ceCollateralAmount: BigInt
+  liquidator: String
+  block: BigInt!
+  timestamp: BigInt!
+}
+
 
 

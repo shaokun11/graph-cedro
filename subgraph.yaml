@@ -24,6 +24,7 @@ dataSources:
         - ReserveEntity
         - SummaryEntity
         - LiquidateEntity
+        - UserActionEntity
       abis:
         - name: Server
           file: ./abis/Server.json

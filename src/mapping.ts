@@ -7,6 +7,7 @@ import {
     RepayEntity,
     ReserveEntity,
     SummaryEntity,
+    UserActionEntity,
     WithdrawEntity
 } from "../generated/schema";
 import {Address, BigInt, Bytes, ethereum} from "@graphprotocol/graph-ts";
@@ -77,6 +78,18 @@ export function handleLiquidate(event: Liquidate): void {
     entity.timestamp = event.block.timestamp
     entity.save()
     updateAPY(event, event.params.collateralId, 'LIQUIDATE')
+    let userAction = new UserActionEntity(event.transaction.hash.toHex())
+    userAction.action = "LIQUIDATE"
+    userAction.user = event.params.user.toHex()
+    userAction.liquidator = event.params.liquidator.toHex()
+    userAction.ceCollateralAmount = event.params.ceCollateralAmount
+    userAction.debtId = event.params.debtId.toHex()
+    userAction.collateralId = event.params.collateralId.toHex()
+    userAction.debtAmount = event.params.debtAmount
+    userAction.ceDebtAmount = event.params.ceDebtAmount
+    userAction.block = event.block.number
+    userAction.timestamp = event.block.timestamp
+    userAction.save()
 
 }
 
@@ -111,6 +124,18 @@ export function handleBorrow(event: Borrow): void {
         usersEntity.save()
     }
     updateAPY(event, event.params.id, 'BORROW')
+
+    let userAction = new UserActionEntity(id)
+    userAction.action = "BORROW"
+    userAction.debtAmount = event.params.debtAmount
+    userAction.tokenAmount = event.params.tokenAmount
+    userAction.block = event.block.number
+    userAction.timestamp = event.block.timestamp
+    // @ts-ignore
+    userAction.chainId = BigInt.fromI32(event.params.chainId as i32)
+    userAction.key = event.params.id.toHex()
+    userAction.user = event.params.user.toHex()
+    userAction.save()
 }
 
 export function handleDeposit(event: Deposit): void {
@@ -127,6 +152,18 @@ export function handleDeposit(event: Deposit): void {
     entity.save()
     updateAPY(event, event.params.id, "DEPOSIT")
 
+    let userAction = new UserActionEntity(id)
+    userAction.action = "DEPOSIT"
+    userAction.tokenAmount = event.params.tokenAmount
+    userAction.ceAmount = event.params.ceAmount
+    // @ts-ignore
+    userAction.chainId = BigInt.fromI32(event.params.chainId as i32)
+    userAction.key = event.params.id.toHex()
+    userAction.user = event.params.user.toHex()
+    userAction.timestamp = event.block.timestamp
+    userAction.block = event.block.number
+    userAction.save()
+
 }
 
 export function handleWithdraw(event: Withdraw): void {
@@ -142,6 +179,18 @@ export function handleWithdraw(event: Withdraw): void {
     entity.block = event.block.number
     entity.save()
     updateAPY(event, event.params.id, "WITHDRAW")
+
+    let userAction = new UserActionEntity(id)
+    userAction.action = "WITHDRAW"
+    userAction.tokenAmount = event.params.tokenAmount
+    userAction.ceAmount = event.params.ceAmount
+    // @ts-ignore
+    userAction.chainId = BigInt.fromI32(event.params.chainId as i32)
+    userAction.key = event.params.id.toHex()
+    userAction.user = event.params.user.toHex()
+    userAction.timestamp = event.block.timestamp
+    userAction.block = event.block.number
+    userAction.save()
 }
 
 export function handleRepay(event: Repay): void {
@@ -158,4 +207,16 @@ export function handleRepay(event: Repay): void {
     entity.block = event.block.number
     entity.save()
     updateAPY(event, event.params.id, "REPAY")
+    let userAction = new UserActionEntity(id)
+    userAction.action = "REPAY"
+    userAction.tokenAmount = event.params.tokenAmount
+    userAction.ceAmount = event.params.ceAmount
+    userAction.debtAmount = event.params.debtAmount
+    // @ts-ignore
+    userAction.chainId = BigInt.fromI32(event.params.chainId as i32)
+    userAction.key = event.params.id.toHex()
+    userAction.user = event.params.user.toHex()
+    userAction.timestamp = event.block.timestamp
+    userAction.block = event.block.number
+    userAction.save()
 }
