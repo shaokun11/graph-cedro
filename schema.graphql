@@ -1,54 +1,106 @@
 type BorrowEntity @entity {
-    id: ID!
-    clientId: BigInt!
-    chainId: BigInt!
-    user: String!
-    amount: BigInt!
-    timestamp: BigInt!
-    block: BigInt!
+  id: ID!
+  user: String!
+  key: String!
+  chainId: BigInt!
+  tokenAmount: BigInt!
+  debtAmount: BigInt!
+  timestamp: BigInt!
+  block: BigInt!
 }
 
 type BorrowUsersEntity @entity {
-    id: ID!
-    users:[String!]!
-    timestamp: BigInt!
+  id: ID!
+  users:[String!]!
+  timestamp: BigInt!
 }
 
 type DepositEntity @entity {
-    id: ID!
-    amount: BigInt!
-    chainId: BigInt!
-    user: String!
-    clientId: BigInt!
-    block: BigInt!
-    timestamp: BigInt!
+  id: ID!
+  user: String!
+  key: String!
+  chainId: BigInt!
+  tokenAmount: BigInt!
+  ceAmount: BigInt!
+  block: BigInt!
+  timestamp: BigInt!
 }
 
 type WithdrawEntity @entity {
-    id: ID!
-    amount: BigInt!
-    chainId: BigInt!
-    user: String!
-    clientId: BigInt!
-    share: BigInt!
-    block: BigInt!
-    timestamp: BigInt!
+  id: ID!
+  user: String!
+  key: String!
+  chainId: BigInt!
+  tokenAmount: BigInt!
+  ceAmount: BigInt!
+  timestamp: BigInt!
+  block: BigInt!
 }
 
-type ClientEntity @entity {
-    id: ID!
-    liquidityA:BigInt!
-    liquidityB:BigInt!
-    totalShareA:BigInt!
-    totalShareB:BigInt!
+type RepayEntity @entity {
+  id: ID!
+  user: String!
+  key: String!
+  chainId: BigInt!
+  tokenAmount: BigInt!
+  debtAmount: BigInt!
+  ceAmount: BigInt!
+  timestamp: BigInt!
+  block: BigInt!
 }
 
-type UserEntity @entity {
-    id: ID!
-    user:String!
-    clientId:BigInt!
-    shareA:BigInt!
-    shareB:BigInt!
+type LiquidateEntity @entity {
+  id: ID!
+  user: String!
+  liquidator: String!
+  debtId: String!
+  collateralId: String!
+  debtAmount: BigInt!
+  ceDebtAmount: BigInt!
+  ceCollateralAmount: BigInt!
+  timestamp: BigInt!
+  block: BigInt!
 }
+
+type ReserveEntity @entity {
+  id: ID!
+  interestRate: BigInt!
+  currentRatio: BigInt!
+  key: String!
+  action: String!
+  timestamp: BigInt!
+  block: BigInt!
+}
+
+type SummaryEntity @entity {
+  id: ID!
+  depositCount:BigInt!
+  withdrawCount:BigInt!
+  borrowCount:BigInt!
+  repayCount:BigInt!
+  liquidateCount:BigInt!
+  totalCount:BigInt!
+  timestamp: BigInt!
+  block: BigInt!
+}
+
+type UserActionEntity @entity {
+  id: ID!
+  action:String
+  user: String!
+  key: String!
+  chainId: BigInt
+  tokenAmount: BigInt
+  debtAmount: BigInt
+  ceAmount: BigInt
+  debtId: String
+  collateralId: String
+  ceDebtAmount: BigInt
+  ceCollateralAmount: BigInt
+  liquidator: String
+  block: BigInt!
+  timestamp: BigInt!
+}
+
 
 

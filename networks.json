@@ -10,5 +10,11 @@
       "address": "0x160c64a5d7483e6d533fb90da310c0c512deb917",
       "startBlock": 11468663
     }
+  },
+  "mumbai": {
+    "Server": {
+      "address": "0x8bAF49C4b98b7D2e0B7F870ab6533dED69070614",
+      "startBlock": 29056258
+    }
   }
 }

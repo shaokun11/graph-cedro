@@ -1,4 +1,4 @@
-specVersion: 0.0.3
+specVersion: 0.0.4
 description: Gravatar for Ethereum
 repository: https://github.com/graphprotocol/example-subgraph
 schema:
@@ -6,32 +6,37 @@ schema:
 dataSources:
   - kind: ethereum/contract
     name: Server
-    network: bscTest
+    network: mumbai
     source:
       abi: Server
-      address: "0x129F1409197d00f484ea9924233D6b96e0458159"
-      startBlock: 23664402
+      address: "0x8bAF49C4b98b7D2e0B7F870ab6533dED69070614"
+      startBlock: 29056258
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.4
+      apiVersion: 0.0.5
       language: wasm/assemblyscript
       entities:
         - BorrowEntity
         - BorrowUsersEntity
         - DepositEntity
         - WithdrawEntity
-        - ClientEntity
-        - UserEntity
+        - RepayEntity
+        - ReserveEntity
+        - SummaryEntity
+        - LiquidateEntity
+        - UserActionEntity
       abis:
         - name: Server
           file: ./abis/Server.json
       eventHandlers:
-        - event: Borrow(uint256,uint16,address,uint256)
+        - event: Borrow(address,bytes32,uint16,uint256,uint256)
           handler: handleBorrow
-        - event: Deposit(uint256,uint16,address,uint256)
+        - event: Deposit(address,bytes32,uint16,uint256,uint256)
           handler: handleDeposit
-        - event: Withdraw(uint256,uint16,address,uint256,uint256)
+        - event: Withdraw(address,bytes32,uint16,uint256,uint256)
           handler: handleWithdraw
-        - event: Repay(uint256,uint16,address,uint256,uint256)
+        - event: Repay(address,bytes32,uint16,uint256,uint256,uint256)
           handler: handleRepay
+        - event: Liquidate(address,address,bytes32,bytes32,uint256,uint256,uint256)
+          handler: handleLiquidate
       file: ./src/mapping.ts
