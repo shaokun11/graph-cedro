@@ -13,7 +13,7 @@ import {
 import {Address, BigInt, Bytes, ethereum} from "@graphprotocol/graph-ts";
 
 
-let serverAddress = Address.fromString('0x8bAF49C4b98b7D2e0B7F870ab6533dED69070614')
+let serverAddress = Address.fromString('0x454EE2E50444D28f317216082DE0E03895D2F902')
 let serverContract = Server.bind(serverAddress)
 
 function updateAPY(event: ethereum.Event, key: Bytes, action: string): void {
@@ -22,8 +22,8 @@ function updateAPY(event: ethereum.Event, key: Bytes, action: string): void {
         let k = event.transaction.hash.toHex()
         let entity = new ReserveEntity(k)
         let res = serverContract.reserves(key)
-        entity.currentRatio = res.getCurrentRatio()
-        entity.interestRate = res.getInterestRate()
+        entity.currentRatio = res.value1
+        entity.interestRate = res.value0
         entity.action = action
         entity.key = key.toHex()
         entity.timestamp = event.block.timestamp
@@ -37,12 +37,12 @@ function updateAPY(event: ethereum.Event, key: Bytes, action: string): void {
         summaryEntity = new SummaryEntity("1");
         summaryEntity.timestamp = event.block.timestamp
         summaryEntity.block = event.block.number
-        summaryEntity.depositCount = BigInt.zero()
-        summaryEntity.withdrawCount = BigInt.zero()
-        summaryEntity.repayCount = BigInt.zero()
-        summaryEntity.borrowCount = BigInt.zero()
-        summaryEntity.totalCount = BigInt.zero()
-        summaryEntity.liquidateCount = BigInt.zero()
+        summaryEntity.depositCount = BigInt.fromString("0")
+        summaryEntity.withdrawCount = BigInt.fromString("0")
+        summaryEntity.repayCount = BigInt.fromString("0")
+        summaryEntity.borrowCount = BigInt.fromString("0")
+        summaryEntity.totalCount = BigInt.fromString("112709")
+        summaryEntity.liquidateCount = BigInt.fromString("0")
         summaryEntity.save()
         summaryEntity = SummaryEntity.load("1");
     }

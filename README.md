@@ -25,3 +25,6 @@
     "type": "function"
   },
 ```
+
+
+> bscTest部署在gql服务器
