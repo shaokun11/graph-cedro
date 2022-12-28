@@ -41,7 +41,7 @@ function updateAPY(event: ethereum.Event, key: Bytes, action: string): void {
         summaryEntity.withdrawCount = BigInt.fromString("0")
         summaryEntity.repayCount = BigInt.fromString("0")
         summaryEntity.borrowCount = BigInt.fromString("0")
-        summaryEntity.totalCount = BigInt.fromString("112709")
+        summaryEntity.totalCount = BigInt.fromString("143574")
         summaryEntity.liquidateCount = BigInt.fromString("0")
         summaryEntity.save()
         summaryEntity = SummaryEntity.load("1");
