@@ -1,6 +1,7 @@
 type BorrowEntity @entity {
   id: ID!
   user: String!
+  to: String!
   key: String!
   chainId: BigInt!
   tokenAmount: BigInt!
@@ -29,6 +30,7 @@ type DepositEntity @entity {
 type WithdrawEntity @entity {
   id: ID!
   user: String!
+  to: String!
   key: String!
   chainId: BigInt!
   tokenAmount: BigInt!
@@ -88,6 +90,7 @@ type UserActionEntity @entity {
   id: ID!
   action:String
   user: String!
+  to: String
   key: String!
   chainId: BigInt
   tokenAmount: BigInt

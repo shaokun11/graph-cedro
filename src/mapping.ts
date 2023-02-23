@@ -13,7 +13,7 @@ import {
 import {Address, BigInt, Bytes, ethereum} from "@graphprotocol/graph-ts";
 
 
-let serverAddress = Address.fromString('0x454EE2E50444D28f317216082DE0E03895D2F902')
+let serverAddress = Address.fromString('0x2381401c1D413d80990B6b08beB829B195EBA616')
 let serverContract = Server.bind(serverAddress)
 
 function updateAPY(event: ethereum.Event, key: Bytes, action: string): void {
@@ -103,6 +103,7 @@ export function handleBorrow(event: Borrow): void {
     // @ts-ignore
     entity.chainId = BigInt.fromI32(event.params.chainId as i32)
     entity.key = event.params.id.toHex()
+    entity.to = event.params.to.toHex()
     entity.user = event.params.user.toHex()
     entity.save()
 
@@ -130,6 +131,7 @@ export function handleBorrow(event: Borrow): void {
     userAction.debtAmount = event.params.debtAmount
     userAction.tokenAmount = event.params.tokenAmount
     userAction.block = event.block.number
+    userAction.to = event.params.to.toHex()
     userAction.timestamp = event.block.timestamp
     // @ts-ignore
     userAction.chainId = BigInt.fromI32(event.params.chainId as i32)
@@ -175,6 +177,7 @@ export function handleWithdraw(event: Withdraw): void {
     entity.chainId = BigInt.fromI32(event.params.chainId as i32)
     entity.key = event.params.id.toHex()
     entity.user = event.params.user.toHex()
+    entity.to = event.params.to.toHex()
     entity.timestamp = event.block.timestamp
     entity.block = event.block.number
     entity.save()
@@ -182,6 +185,7 @@ export function handleWithdraw(event: Withdraw): void {
 
     let userAction = new UserActionEntity(id)
     userAction.action = "WITHDRAW"
+    userAction.to = event.params.to.toHex()
     userAction.tokenAmount = event.params.tokenAmount
     userAction.ceAmount = event.params.ceAmount
     // @ts-ignore

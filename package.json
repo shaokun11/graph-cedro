@@ -4,8 +4,8 @@
   "scripts": {
     "codegen": "graph codegen",
     "build": "graph build --network mumbai",
-    "create": "graph create cedro/server --node http://localhost:8020",
-    "deploy:l": "graph deploy cedro/server --node http://localhost:8020 --ipfs http://localhost:5001",
+    "create": "graph create cedro/server1 --node http://localhost:8020",
+    "deploy:l": "graph deploy cedro/server1 --node http://localhost:8020 --ipfs http://localhost:5001",
     "deploy": "graph deploy --product hosted-service shaokun11/cedrov2"
   },
   "devDependencies": {
