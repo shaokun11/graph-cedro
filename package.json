@@ -2,7 +2,10 @@
   "name": "cedro",
   "version": "0.1.0",
   "scripts": {
-    "codegen": "graph codegen",
+    "create:lz": "graph create cedro/layerzero --node http://localhost:8020",
+    "codegen:lz": "graph codegen subgraph_layerzero.yaml",
+    "deploy:lz": "graph deploy cedro/layerzero subgraph_layerzero.yaml --node http://localhost:8020 --ipfs http://localhost:5001",
+    "codegen": "graph codegen ",
     "build": "graph build --network mumbai",
     "create": "graph create cedro/server1 --node http://localhost:8020",
     "deploy:l": "graph deploy cedro/server1 --node http://localhost:8020 --ipfs http://localhost:5001",

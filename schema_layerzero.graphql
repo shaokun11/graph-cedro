@@ -1,0 +1,27 @@
+type PackedEntity @entity {
+  id: ID!
+  timestamp: BigInt!
+  block: BigInt!
+}
+type ReceivedPackedEntity @entity {
+  id: ID!
+  timestamp: BigInt!
+  block: BigInt!
+}
+type AllEntity @entity {
+  id: ID!
+  packedCount:BigInt!
+  ReceivedPackedCount:BigInt!
+  timestamp: BigInt!
+  block: BigInt!
+}
+
+
+
+
+
+
+
+
+
+
