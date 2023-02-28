@@ -15,8 +15,9 @@ import {Address, BigInt, Bytes, ethereum} from "@graphprotocol/graph-ts";
 
 let serverAddress = Address.fromString('0x2381401c1D413d80990B6b08beB829B195EBA616')
 let serverContract = Server.bind(serverAddress)
+let rootChainId = BigInt.fromString("10102")
 
-function updateAPY(event: ethereum.Event, key: Bytes, action: string): void {
+function updateAPY(event: ethereum.Event, key: Bytes, action: string, isNative: boolean): void {
     if (action != "LIQUIDATE") {
         // update apy
         let k = event.transaction.hash.toHex()
@@ -39,6 +40,7 @@ function updateAPY(event: ethereum.Event, key: Bytes, action: string): void {
         summaryEntity.block = event.block.number
         summaryEntity.depositCount = BigInt.fromString("0")
         summaryEntity.withdrawCount = BigInt.fromString("0")
+        summaryEntity.nonCrossCount = BigInt.fromString("0")
         summaryEntity.repayCount = BigInt.fromString("0")
         summaryEntity.borrowCount = BigInt.fromString("0")
         summaryEntity.totalCount = BigInt.fromString("143574")
@@ -57,6 +59,9 @@ function updateAPY(event: ethereum.Event, key: Bytes, action: string): void {
             summaryEntity.repayCount = summaryEntity.repayCount.plus(BIGINT_ONE)
         } else if (action == "LIQUIDATE") {
             summaryEntity.liquidateCount = summaryEntity.liquidateCount.plus(BIGINT_ONE)
+        }
+        if (isNative) {
+            summaryEntity.nonCrossCount = summaryEntity.nonCrossCount.plus(BIGINT_ONE)
         }
         summaryEntity.totalCount = summaryEntity.totalCount.plus(BIGINT_ONE)
         summaryEntity.block = event.block.number
@@ -77,7 +82,7 @@ export function handleLiquidate(event: Liquidate): void {
     entity.block = event.block.number
     entity.timestamp = event.block.timestamp
     entity.save()
-    updateAPY(event, event.params.collateralId, 'LIQUIDATE')
+    updateAPY(event, event.params.collateralId, 'LIQUIDATE', entity.debtId == entity.collateralId)
     let userAction = new UserActionEntity(event.transaction.hash.toHex())
     userAction.action = "LIQUIDATE"
     userAction.user = event.params.user.toHex()
@@ -124,7 +129,7 @@ export function handleBorrow(event: Borrow): void {
         usersEntity.timestamp = entity.timestamp
         usersEntity.save()
     }
-    updateAPY(event, event.params.id, 'BORROW')
+    updateAPY(event, event.params.id, 'BORROW', entity.chainId.equals(rootChainId))
 
     let userAction = new UserActionEntity(id)
     userAction.action = "BORROW"
@@ -152,7 +157,7 @@ export function handleDeposit(event: Deposit): void {
     entity.timestamp = event.block.timestamp
     entity.block = event.block.number
     entity.save()
-    updateAPY(event, event.params.id, "DEPOSIT")
+    updateAPY(event, event.params.id, "DEPOSIT", entity.chainId.equals(rootChainId))
 
     let userAction = new UserActionEntity(id)
     userAction.action = "DEPOSIT"
@@ -181,7 +186,7 @@ export function handleWithdraw(event: Withdraw): void {
     entity.timestamp = event.block.timestamp
     entity.block = event.block.number
     entity.save()
-    updateAPY(event, event.params.id, "WITHDRAW")
+    updateAPY(event, event.params.id, "WITHDRAW", entity.chainId.equals(rootChainId))
 
     let userAction = new UserActionEntity(id)
     userAction.action = "WITHDRAW"
@@ -210,7 +215,7 @@ export function handleRepay(event: Repay): void {
     entity.timestamp = event.block.timestamp
     entity.block = event.block.number
     entity.save()
-    updateAPY(event, event.params.id, "REPAY")
+    updateAPY(event, event.params.id, "REPAY", entity.chainId.equals(rootChainId))
     let userAction = new UserActionEntity(id)
     userAction.action = "REPAY"
     userAction.tokenAmount = event.params.tokenAmount

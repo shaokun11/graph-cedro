@@ -81,6 +81,7 @@ type SummaryEntity @entity {
   borrowCount:BigInt!
   repayCount:BigInt!
   liquidateCount:BigInt!
+  nonCrossCount:BigInt!
   totalCount:BigInt!
   timestamp: BigInt!
   block: BigInt!
