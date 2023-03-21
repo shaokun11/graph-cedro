@@ -20,18 +20,18 @@ let rootChainId = BigInt.fromString("10102")
 function updateAPY(event: ethereum.Event, key: Bytes, action: string, isNative: boolean): void {
     if (action != "LIQUIDATE") {
         // update apy
-        let k = event.transaction.hash.toHex()
-        let entity = new ReserveEntity(k)
-        let res = serverContract.try_reserves(key)
-        if (res.value) {
-            entity.currentRatio = res.value.value1
-            entity.interestRate = res.value.value0
-            entity.action = action
-            entity.key = key.toHex()
-            entity.timestamp = event.block.timestamp
-            entity.block = event.block.number
-            entity.save()
-        }
+        // let k = event.transaction.hash.toHex()
+        // let entity = new ReserveEntity(k)
+        // let res = serverContract.try_reserves(key)
+        // if (res.value) {
+        //     entity.currentRatio = res.value.value1
+        //     entity.interestRate = res.value.value0
+        //     entity.action = action
+        //     entity.key = key.toHex()
+        //     entity.timestamp = event.block.timestamp
+        //     entity.block = event.block.number
+        //     entity.save()
+        // }
     }
     // update summary info
     let BIGINT_ONE = BigInt.fromString('1')
