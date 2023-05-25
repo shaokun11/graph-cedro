@@ -9,8 +9,8 @@ dataSources:
     network: bscTest
     source:
       abi: Server
-      address: "0x2381401c1D413d80990B6b08beB829B195EBA616"
-      startBlock: 27432173
+      address: "0x44AD8a4912D55593cb670D4e18f68dEA5858F613"
+      startBlock: 29847829
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.4
@@ -27,16 +27,37 @@ dataSources:
         - UserActionEntity
       abis:
         - name: Server
-          file: ./abis/Server.json
+          file: ./abis/pool.json
       eventHandlers:
-        - event: Borrow(address,address,bytes32,uint16,uint256,uint256)
+        - event: Borrow(address,address,bytes32,bytes32,uint256,uint256)
           handler: handleBorrow
-        - event: Deposit(address,bytes32,uint16,uint256,uint256)
+        - event: Deposit(address,bytes32,bytes32,uint256,uint256)
           handler: handleDeposit
-        - event:  Withdraw(address,address,bytes32,uint16,uint256,uint256)
+        - event:  Withdraw(address,address,bytes32,bytes32,uint256,uint256)
           handler: handleWithdraw
-        - event: Repay(address,bytes32,uint16,uint256,uint256,uint256)
+        - event: Repay(address,bytes32,bytes32,uint256,uint256,uint256)
           handler: handleRepay
-        - event: Liquidate(address,address,bytes32,bytes32,uint256,uint256,uint256)
+      file: ./src/mapping.ts
+  - kind: ethereum/contract
+    name: Liquidation
+    network: bscTest
+    source:
+      abi: Liquidation
+      address: "0xB6734C9aF47766e8e409264fC8299dc3F8cFEDd7"
+      startBlock: 29847829
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - LiquidateEntity
+        - ReserveEntity
+        - SummaryEntity
+        - UserActionEntity
+      abis:
+        - name: Liquidation
+          file: ./abis/pool.json
+      eventHandlers:
+        - event: Liquidate(address,address,bytes32,bytes32,uint256,uint256,uint256,uint256)
           handler: handleLiquidate
       file: ./src/mapping.ts

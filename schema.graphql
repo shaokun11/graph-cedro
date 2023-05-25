@@ -3,7 +3,7 @@ type BorrowEntity @entity {
   user: String!
   to: String!
   key: String!
-  chainId: BigInt!
+  chainId: String!
   tokenAmount: BigInt!
   debtAmount: BigInt!
   timestamp: BigInt!
@@ -20,7 +20,7 @@ type DepositEntity @entity {
   id: ID!
   user: String!
   key: String!
-  chainId: BigInt!
+  chainId: String!
   tokenAmount: BigInt!
   ceAmount: BigInt!
   block: BigInt!
@@ -32,7 +32,7 @@ type WithdrawEntity @entity {
   user: String!
   to: String!
   key: String!
-  chainId: BigInt!
+  chainId: String!
   tokenAmount: BigInt!
   ceAmount: BigInt!
   timestamp: BigInt!
@@ -43,7 +43,7 @@ type RepayEntity @entity {
   id: ID!
   user: String!
   key: String!
-  chainId: BigInt!
+  chainId: String!
   tokenAmount: BigInt!
   debtAmount: BigInt!
   ceAmount: BigInt!
@@ -57,9 +57,10 @@ type LiquidateEntity @entity {
   liquidator: String!
   debtId: String!
   collateralId: String!
-  debtAmount: BigInt!
-  ceDebtAmount: BigInt!
-  ceCollateralAmount: BigInt!
+  collateralAmount: BigInt!
+  burnDebtAmount: BigInt!
+  repayAmount: BigInt!
+  discount: BigInt!
   timestamp: BigInt!
   block: BigInt!
 }
@@ -93,14 +94,16 @@ type UserActionEntity @entity {
   user: String!
   to: String
   key: String!
-  chainId: BigInt
+  chainId: String
   tokenAmount: BigInt
   debtAmount: BigInt
   ceAmount: BigInt
   debtId: String
   collateralId: String
-  ceDebtAmount: BigInt
-  ceCollateralAmount: BigInt
+  burnDebtAmount: BigInt
+  collateralAmount: BigInt
+  repayAmount: BigInt
+  discount: BigInt
   liquidator: String
   block: BigInt!
   timestamp: BigInt!
