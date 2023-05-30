@@ -29,13 +29,13 @@ dataSources:
         - name: Server
           file: ./abis/pool.json
       eventHandlers:
-        - event: Borrow(address,address,bytes32,bytes32,uint256,uint256)
+        - event:  Borrow(address,address,bytes32,bytes32,uint256,uint256,bytes32)
           handler: handleBorrow
-        - event: Deposit(address,bytes32,bytes32,uint256,uint256)
+        - event: Deposit(address,bytes32,bytes32,uint256,uint256,bytes32)
           handler: handleDeposit
-        - event:  Withdraw(address,address,bytes32,bytes32,uint256,uint256)
+        - event:  Withdraw(address,address,bytes32,bytes32,uint256,uint256,bytes32)
           handler: handleWithdraw
-        - event: Repay(address,bytes32,bytes32,uint256,uint256,uint256)
+        - event: Repay(address,bytes32,bytes32,uint256,uint256,uint256,bytes32)
           handler: handleRepay
       file: ./src/mapping.ts
   - kind: ethereum/contract

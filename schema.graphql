@@ -4,6 +4,7 @@ type BorrowEntity @entity {
   to: String!
   key: String!
   chainId: String!
+  route: String!
   tokenAmount: BigInt!
   debtAmount: BigInt!
   timestamp: BigInt!
@@ -21,6 +22,7 @@ type DepositEntity @entity {
   user: String!
   key: String!
   chainId: String!
+  route: String!
   tokenAmount: BigInt!
   ceAmount: BigInt!
   block: BigInt!
@@ -32,6 +34,7 @@ type WithdrawEntity @entity {
   user: String!
   to: String!
   key: String!
+  route: String!
   chainId: String!
   tokenAmount: BigInt!
   ceAmount: BigInt!
@@ -44,6 +47,7 @@ type RepayEntity @entity {
   user: String!
   key: String!
   chainId: String!
+  route: String!
   tokenAmount: BigInt!
   debtAmount: BigInt!
   ceAmount: BigInt!
@@ -91,10 +95,11 @@ type SummaryEntity @entity {
 type UserActionEntity @entity {
   id: ID!
   action:String
-  user: String!
+  user: String
   to: String
-  key: String!
+  key: String
   chainId: String
+  route: String
   tokenAmount: BigInt
   debtAmount: BigInt
   ceAmount: BigInt

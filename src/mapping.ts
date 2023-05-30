@@ -110,6 +110,7 @@ export function handleBorrow(event: Borrow): void {
     entity.timestamp = event.block.timestamp
     entity.chainId = event.params.chainId.toHexString()
     entity.key = event.params.id.toHexString()
+    entity.route = event.params.route.toHexString()
     entity.to = event.params.to.toHexString()
     entity.user = event.params.user.toHexString()
     entity.save()
@@ -138,6 +139,7 @@ export function handleBorrow(event: Borrow): void {
     userAction.debtAmount = event.params.debtAmount
     userAction.tokenAmount = event.params.tokenAmount
     userAction.block = event.block.number
+    userAction.route = event.params.route.toHexString()
     userAction.to = event.params.to.toHexString()
     userAction.timestamp = event.block.timestamp
     userAction.chainId = event.params.chainId.toHexString()
@@ -154,6 +156,7 @@ export function handleDeposit(event: Deposit): void {
     entity.chainId = event.params.chainId.toHexString()
     entity.key = event.params.id.toHexString()
     entity.user = event.params.user.toHexString()
+    entity.route = event.params.route.toHexString()
     entity.timestamp = event.block.timestamp
     entity.block = event.block.number
     entity.save()
@@ -165,6 +168,7 @@ export function handleDeposit(event: Deposit): void {
     userAction.ceAmount = event.params.ceAmount
     userAction.chainId = event.params.chainId.toHexString()
     userAction.key = event.params.id.toHexString()
+    userAction.route = event.params.route.toHexString()
     userAction.user = event.params.user.toHexString()
     userAction.timestamp = event.block.timestamp
     userAction.block = event.block.number
@@ -180,6 +184,7 @@ export function handleWithdraw(event: Withdraw): void {
     entity.chainId = event.params.chainId.toHexString()
     entity.key = event.params.id.toHexString()
     entity.user = event.params.user.toHexString()
+    entity.route = event.params.route.toHexString()
     entity.to = event.params.to.toHexString()
     entity.timestamp = event.block.timestamp
     entity.block = event.block.number
@@ -190,6 +195,7 @@ export function handleWithdraw(event: Withdraw): void {
     userAction.action = "WITHDRAW"
     userAction.to = event.params.to.toHexString()
     userAction.tokenAmount = event.params.tokenAmount
+    userAction.route = event.params.route.toHexString()
     userAction.ceAmount = event.params.ceAmount
     userAction.chainId = event.params.chainId.toHexString()
     userAction.key = event.params.id.toHexString()
@@ -208,6 +214,7 @@ export function handleRepay(event: Repay): void {
     entity.chainId = event.params.chainId.toHexString()
     entity.key = event.params.id.toHexString()
     entity.user = event.params.user.toHexString()
+    entity.route = event.params.route.toHexString()
     entity.timestamp = event.block.timestamp
     entity.block = event.block.number
     entity.save()
@@ -217,6 +224,7 @@ export function handleRepay(event: Repay): void {
     userAction.tokenAmount = event.params.tokenAmount
     userAction.ceAmount = event.params.ceAmount
     userAction.debtAmount = event.params.debtAmount
+    userAction.route = event.params.route.toHexString()
     userAction.chainId = event.params.chainId.toHexString()
     userAction.key = event.params.id.toHexString()
     userAction.user = event.params.user.toHexString()

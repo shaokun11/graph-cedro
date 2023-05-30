@@ -37,6 +37,12 @@
         "internalType": "uint256",
         "name": "debtAmount",
         "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "bytes32",
+        "name": "route",
+        "type": "bytes32"
       }
     ],
     "name": "Borrow",
@@ -93,6 +99,12 @@
         "internalType": "uint256",
         "name": "ceAmount",
         "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "bytes32",
+        "name": "route",
+        "type": "bytes32"
       }
     ],
     "name": "Deposit",
@@ -241,6 +253,12 @@
         "internalType": "uint256",
         "name": "ceAmount",
         "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "bytes32",
+        "name": "route",
+        "type": "bytes32"
       }
     ],
     "name": "Repay",
@@ -340,6 +358,12 @@
         "internalType": "uint256",
         "name": "ceAmount",
         "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "bytes32",
+        "name": "route",
+        "type": "bytes32"
       }
     ],
     "name": "Withdraw",
