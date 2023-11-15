@@ -9,7 +9,7 @@
     "deploy": "graph deploy --product hosted-service shaokun11/cedrov2"
   },
   "devDependencies": {
-    "@graphprotocol/graph-cli": "0.21.1",
+    "@graphprotocol/graph-cli": "https://github.com/shaokun11/graph-cli-0.21.1.git",
     "@graphprotocol/graph-ts": "0.20.0"
   },
   "dependencies": {
